@@ -1,0 +1,9 @@
+{
+  "welcome": "Добро пожаловать в Hype Drakon, {username}!",
+  "tap_message": "Вы заработали {amount} монет!",
+  "error": "❌ Ошибка: {error}",
+  "shop": {
+    "title": "Магазин улучшений",
+    "damage_upgrade": "Улучшение урона (+{value})"
+  }
+}

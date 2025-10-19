@@ -1,0 +1,3 @@
+⚔️ Attack {attacker} against {defender}!
+💥 Damage done: {damage}
+❤️ HP left: {remaining_hp}

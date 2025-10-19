@@ -1,0 +1,9 @@
+{
+  "welcome": "Welcome to Hype Drakon!",
+  "tap_message": "You earned coins!",
+  "error": "Error occurred",
+  "shop": {
+    "title": "Shop",
+    "damage_upgrade": "Upgrade"
+  }
+}

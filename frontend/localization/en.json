@@ -1,9 +1,0 @@
-{
-  "welcome": "Welcome to Hype Drakon, {username}!",
-  "tap_message": "You earned {amount} coins!",
-  "error": "❌ Error: {error}",
-  "shop": {
-    "title": "Upgrades Shop",
-    "damage_upgrade": "Damage upgrade (+{value})"
-  }
-}

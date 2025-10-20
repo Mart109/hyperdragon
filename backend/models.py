@@ -9,4 +9,6 @@ class UserProfile(BaseModel):
     experience: int = 0
     coins: int = 100
     created_at: datetime
-    last_login: datetime
+
+class ClickRequest(BaseModel):
+    username: str

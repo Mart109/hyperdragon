@@ -1,13 +1,10 @@
-from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel
-from typing import List, Optional, Dict
-from enum import Enum
-import uuid
 from datetime import datetime
 
 class UserProfile(BaseModel):
-    id: str
+    user_id: int
     username: str
+    first_name: str
     level: int = 1
     experience: int = 0
     coins: int = 100

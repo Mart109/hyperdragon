@@ -1,0 +1,619 @@
+/* BattlePage.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.battle-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a0c0c 0%, #2a1a1a 50%, #1a0c0c 100%);
+  color: #ffffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 16px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.battle-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+      circle at 20% 80%,
+      rgba(255, 34, 34, 0.15) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(255, 107, 7, 0.15) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 40% 40%,
+      rgba(243, 33, 33, 0.1) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.battle-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Заголовок */
+.battle-header {
+  text-align: center;
+  padding: 30px 20px;
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 34, 34, 0.15) 0%,
+    rgba(255, 107, 7, 0.15) 50%,
+    rgba(243, 33, 33, 0.1) 100%
+  );
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.header-content {
+  position: relative;
+  z-index: 2;
+}
+
+.battle-title {
+  font-size: clamp(2.2rem, 6vw, 3.5rem);
+  font-weight: 900;
+  background: linear-gradient(45deg, #ff2222, #ff6b07, #f32121, #ff2222);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  animation: gradientShift 3s ease infinite;
+  text-shadow: 0 0 30px rgba(255, 34, 34, 0.4);
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+}
+
+.battle-subtitle {
+  font-size: clamp(1rem, 3vw, 1.3rem);
+  color: #b0bec5;
+  opacity: 0.9;
+  font-weight: 500;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.4;
+}
+
+.header-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.decoration-sword,
+.decoration-shield,
+.decoration-target {
+  position: absolute;
+  font-size: 1.8rem;
+  opacity: 0.3;
+  animation: float 6s ease-in-out infinite;
+}
+
+.decoration-sword {
+  top: 15%;
+  left: 8%;
+  animation-delay: 0s;
+}
+
+.decoration-shield {
+  top: 25%;
+  right: 10%;
+  animation-delay: 2s;
+}
+
+.decoration-target {
+  bottom: 20%;
+  left: 15%;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
+}
+
+/* Баланс */
+.balance-section {
+  margin-bottom: 20px;
+}
+
+.balance-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 300px;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.balance-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 107, 7, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.balance-icon {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, #ff6b07, #ff9800);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.balance-content {
+  flex: 1;
+}
+
+.balance-title {
+  font-size: 0.9rem;
+  color: #b0bec5;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.balance-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ff6b07;
+  text-shadow: 0 2px 8px rgba(255, 107, 7, 0.3);
+}
+
+/* Основной контент */
+.battle-main {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  backdrop-filter: blur(20px);
+  margin-bottom: 20px;
+}
+
+/* Статистика битвы */
+.battle-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.stat-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 107, 7, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 107, 7, 0.2);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.stat-info {
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #b0bec5;
+  font-weight: 600;
+}
+
+/* Секция начала игры */
+.start-section {
+  text-align: center;
+}
+
+.game-rules {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.game-rules h3 {
+  color: #ff6b07;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.game-rules ul {
+  list-style: none;
+  padding: 0;
+}
+
+.game-rules li {
+  color: #b0bec5;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.start-button {
+  background: linear-gradient(135deg, #ff2222, #ff6b07);
+  border: none;
+  border-radius: 16px;
+  padding: 20px 40px;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(255, 34, 34, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.start-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(255, 34, 34, 0.6);
+}
+
+.button-icon {
+  font-size: 1.5rem;
+}
+
+/* Игровое поле */
+.game-field {
+  position: relative;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  height: 500px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.game-header-info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.time-left,
+.current-score {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ff6b07;
+}
+
+.cancel-button {
+  background: rgba(255, 34, 34, 0.8);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-button:hover {
+  background: rgba(255, 34, 34, 1);
+}
+
+/* Цели */
+.target {
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  z-index: 5;
+  animation: targetAppear 0.3s ease-out;
+}
+
+.target:hover {
+  transform: scale(1.1);
+}
+
+.target-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(255, 34, 34, 0.6));
+  animation: targetPulse 1s ease-in-out infinite;
+}
+
+@keyframes targetAppear {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes targetPulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 10px rgba(255, 34, 34, 0.6));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(255, 34, 34, 0.9));
+  }
+}
+
+.game-instruction {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #b0bec5;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Модальное окно результатов */
+.results-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #2a1a1a, #1a0c0c);
+  border: 2px solid rgba(255, 107, 7, 0.5);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-content h2 {
+  color: #ff6b07;
+  margin-bottom: 25px;
+  font-size: 2rem;
+}
+
+.results-stats {
+  margin-bottom: 30px;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.result-label {
+  color: #b0bec5;
+  font-weight: 600;
+}
+
+.result-value {
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.result-value.reward {
+  color: #ff6b07;
+}
+
+.play-again-button {
+  background: linear-gradient(135deg, #ff6b07, #ff2222);
+  border: none;
+  border-radius: 12px;
+  padding: 15px 30px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 107, 7, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.play-again-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 7, 0.6);
+}
+
+/* Футер */
+.battle-footer {
+  text-align: center;
+  padding: 20px 0;
+  color: #b0bec5;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  line-height: 1.3;
+}
+
+/* Анимация градиента */
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .battle-page {
+    padding: 12px 8px;
+  }
+
+  .battle-container {
+    gap: 16px;
+  }
+
+  .battle-header {
+    padding: 24px 16px;
+    border-radius: 16px;
+  }
+
+  .battle-title {
+    font-size: 2rem;
+  }
+
+  .battle-subtitle {
+    font-size: 1rem;
+  }
+
+  .balance-card {
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  .battle-main {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .battle-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .stat-item {
+    padding: 16px;
+  }
+
+  .game-field {
+    height: 400px;
+  }
+
+  .game-rules {
+    padding: 20px;
+  }
+
+  .start-button {
+    padding: 16px 32px;
+    font-size: 1.1rem;
+  }
+
+  .modal-content {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-field {
+    height: 350px;
+  }
+
+  .game-header-info {
+    padding: 12px 15px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .target {
+    min-width: 40px;
+    min-height: 40px;
+  }
+}

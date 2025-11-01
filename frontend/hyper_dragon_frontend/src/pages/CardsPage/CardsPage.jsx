@@ -6,6 +6,12 @@ import goldenDragonImage from '../../assets/cards/golden_dragon.jpg'
 import sportDragonImage from '../../assets/cards/sport_dragon.jpg'
 import dragonLambaImage from '../../assets/cards/dragon_lamba.jpg'
 import dragonImage from '../../assets/cards/dragon.jpg'
+import BlackDragonImage from '../../assets/cards/black_dragon.jpg'
+import BattleDragon123Image from '../../assets/cards/battle_dragon123.jpg'
+import CryptoDragonImage from '../../assets/cards/crypto_dragon.jpg'
+import OfficeDragonImage from '../../assets/cards/office_dragon.jpg'
+import FateDragonsImage from '../../assets/cards/fate_dragons.jpg'
+import TreasureDragonImage from '../../assets/cards/golden_dragon2.jpg'
 
 const CardsPage = () => {
   const [coins, setCoins] = useState(0)
@@ -48,22 +54,88 @@ const CardsPage = () => {
       description: 'Могучий дракон - вершина силы',
       image: dragonImage,
     },
+    {
+      id: 5,
+      cardName: 'black_dragon',
+      name: 'Business Dragon',
+      price: 1500,
+      income: 700,
+      description: 'Деловой дракон. Ваш капитал — его приоритет',
+      image: BlackDragonImage,
+    },
+    {
+      id: 6,
+      cardName: 'battle_dragon123',
+      name: 'Battle Dragon',
+      price: 2000,
+      income: 900,
+      description: 'Боевой дракон. Он правит не только деньгами',
+      image: BattleDragon123Image,
+    },
+    {
+      id: 7,
+      cardName: 'crypto_dragon',
+      name: 'Crypto Dragon',
+      price: 2500,
+      income: 1000,
+      description: 'Дракон в котором течет крипта',
+      image: CryptoDragonImage,
+    },
+    {
+      id: 8,
+      cardName: 'office_dragon',
+      name: 'Office Dragon',
+      price: 5000,
+      income: 2500,
+      description:
+        'Просто хочу отдых. В коде баги, в пещере — сокровища. Выбор очевиден',
+      image: OfficeDragonImage,
+    },
+    {
+      id: 9,
+      cardName: 'fate_dragons',
+      name: 'Fate Dragons',
+      price: 7500,
+      income: 3000,
+      description:
+        'Компания судьбы - это не просто компания, это судьба всего мира',
+      image: FateDragonsImage,
+    },
+    {
+      id: 10,
+      cardName: 'golden_dragon2',
+      name: 'Treasure Dragon',
+      price: 100000,
+      income: 25000,
+      description: 'Дракон-сокровище. Самый ценный актив в портфеле',
+      image: TreasureDragonImage,
+    },
   ]
 
   // Загрузка данных игрока
   useEffect(() => {
     const savedCoins = localStorage.getItem('hypeDragon_coins')
-    if (savedCoins) setCoins(parseInt(savedCoins))
+    if (savedCoins) setCoins(parseInt(savedCoins, 10)) // Используем radix 10 для parseInt
   }, [])
 
   const handleBuyCard = (cardPrice, cardName) => {
     if (coins >= cardPrice) {
-      setCoins((prev) => prev - cardPrice)
-      localStorage.setItem('hypeDragon_coins', (coins - cardPrice).toString())
+      const newCoins = coins - cardPrice
+      setCoins(newCoins)
+      // Обновляем localStorage с новым значением
+      localStorage.setItem('hypeDragon_coins', newCoins.toString())
       alert(`🎉 Карта "${cardName}" успешно куплена!`)
     } else {
       alert('❌ Недостаточно монет для покупки!')
     }
+  }
+
+  // Функция для определения редкости (для большей чистоты кода)
+  const getCardRarity = (price) => {
+    if (price <= 200) return '⚡ Обычная'
+    if (price <= 500) return '🔷 Редкая'
+    if (price <= 10000) return '💎 Эпическая'
+    return '🏆 Легендарная'
   }
 
   return (
@@ -116,13 +188,8 @@ const CardsPage = () => {
                       className="card-image"
                     />
                   </div>
-                  <div className="card-rarity">
-                    {card.price <= 200
-                      ? '⚡ Обычная'
-                      : card.price <= 500
-                      ? '🔷 Редкая'
-                      : '💎 Эпическая'}
-                  </div>
+
+                  <div className="card-rarity">{getCardRarity(card.price)}</div>
                 </div>
 
                 {/* Информация о карте */}

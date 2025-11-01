@@ -17,6 +17,10 @@ public class ClickerService {
     @Autowired
     private UserRepository userRepository;
 
+    // Максимальный уровень и базовая стоимость
+    private static final int MAX_LEVEL = 1000;
+    private static final int BASE_COINS_PER_LEVEL = 1000;
+
     @Transactional
     public ClickResponse handleClickById(Long userId) {
         try {
@@ -77,12 +81,31 @@ public class ClickerService {
     private ClickResponse processClick(Users user, String message) {
         user.setCoins(user.getCoins() + 1);
 
-        if (user.getCoins() % 10 == 0) {
-            user.setLevel(user.getLevel() + 1);
-        }
+        checkAndUpdateLevel(user);
 
         Users savedUser = userRepository.save(user);
         return createResponse(savedUser, message);
+    }
+
+    /**
+     * Новая система уровней: каждый уровень требует level * 1000 монет
+     * Уровень 1: 1000 монет
+     * Уровень 2: 2000 монет
+     * Уровень 3: 3000 монет
+     * ...
+     * Уровень 1000: 1,000,000 монет
+     */
+    private void checkAndUpdateLevel(Users user) {
+        if (user.getLevel() >= MAX_LEVEL) {
+            return; // Достигнут максимальный уровень
+        }
+
+        int requiredCoins = (user.getLevel() + 1) * BASE_COINS_PER_LEVEL;
+
+        if (user.getCoins() >= requiredCoins) {
+            user.setLevel(user.getLevel() + 1);
+            System.out.println("🎉 Уровень повышен до " + user.getLevel() + "! Нужно для след. уровня: " + ((user.getLevel() + 1) * BASE_COINS_PER_LEVEL) + " монет");
+        }
     }
 
     public ClickResponse getUserInfo(Long userId) {
@@ -157,5 +180,24 @@ public class ClickerService {
         Users newUser = new Users(username);
         Users savedUser = userRepository.save(newUser);
         return createResponse(savedUser, "Пользователь создан");
+    }
+
+    /**
+     * Вспомогательный метод для получения информации о следующем уровне
+     */
+    public String getNextLevelInfo(Users user) {
+        if (user.getLevel() >= MAX_LEVEL) {
+            return "Достигнут максимальный уровень (" + MAX_LEVEL + ")!";
+        }
+
+        int currentLevel = user.getLevel();
+        int nextLevel = currentLevel + 1;
+        int requiredCoins = nextLevel * BASE_COINS_PER_LEVEL;
+        int coinsNeeded = requiredCoins - user.getCoins();
+
+        return String.format(
+                "Уровень %d → %d: нужно %d монет (осталось: %d)",
+                currentLevel, nextLevel, requiredCoins, coinsNeeded
+        );
     }
 }

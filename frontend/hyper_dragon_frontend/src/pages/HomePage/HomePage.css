@@ -880,16 +880,53 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
   }
+
+  /* ОБНОВЛЕННАЯ СЕТКА С ЦЕНТРИРОВАННОЙ ЭНЕРГИЕЙ */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 8px;
+    grid-template-areas:
+      'coins level'
+      'energy energy';
+  }
+
+  .stat-card:nth-child(1) {
+    grid-area: coins;
+  }
+  .stat-card:nth-child(2) {
+    grid-area: level;
+  }
+  .stat-card:nth-child(3) {
+    grid-area: energy;
+    justify-self: center;
+    width: 80%;
+    max-width: 300px;
+    min-height: 90px;
+  }
+
+  .stat-card:nth-child(3) .stat-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.8rem;
+  }
+
+  .stat-card:nth-child(3) .stat-value {
+    font-size: 1.6rem;
+  }
+
   .stat-card {
     padding: 16px 12px;
     min-height: 80px;
     gap: 10px;
   }
+
   .stat-icon {
     width: 44px;
     height: 44px;
     font-size: 1.4rem;
   }
+
   .progress-container {
     padding: 16px;
   }
@@ -909,6 +946,7 @@
 @media (min-width: 481px) and (max-width: 768px) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   .upgrades-grid {
     grid-template-columns: 1fr;
@@ -936,5 +974,39 @@
   .clicker-button {
     width: 320px;
     height: 320px;
+  }
+}
+
+/* Дополнительные улучшения для карточки энергии */
+@media (max-width: 480px) {
+  .stat-card:nth-child(3) {
+    background: linear-gradient(
+      135deg,
+      rgba(255, 87, 34, 0.15) 0%,
+      rgba(255, 255, 255, 0.08) 100%
+    );
+    border: 1px solid rgba(255, 87, 34, 0.3);
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.2);
+  }
+
+  .stat-card:nth-child(3):hover {
+    border-color: rgba(255, 87, 34, 0.5);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 87, 34, 0.2);
+  }
+}
+
+/* Анимация для низкой энергии */
+.energy-low {
+  animation: energyPulse 2s infinite;
+  border-color: rgba(255, 87, 34, 0.5) !important;
+}
+
+@keyframes energyPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 3px rgba(255, 87, 34, 0.2);
   }
 }

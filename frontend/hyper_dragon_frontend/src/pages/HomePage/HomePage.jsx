@@ -79,6 +79,9 @@ const HomePage = () => {
       setEnergyRestores(newRestores)
       localStorage.setItem('hypeDragon_energyRestores', newRestores.toString())
       alert(`⚡ Энергия восстановлена! Осталось восстановлений: ${newRestores}`)
+      alert(
+        `⚡ Энергия восстановлена!\nОсталось восстановлений на сегодня: ${newRestores}`,
+      )
     } else if (energyRestores <= 0) {
       alert('❌ Достигнут лимит восстановлений на сегодня!')
     } else if (energy >= maxEnergy) {
@@ -129,6 +132,15 @@ const HomePage = () => {
               <div className="stat-title">Энергия</div>
               <div className="stat-value">
                 {energy}/{maxEnergy}
+          {/* ОБНОВЛЕННЫЙ БЛОК: Используем обертку для центрирования на мобильных */}
+          <div className="button-wrapper-center">
+            <div className="stat-card energy-button">
+              <div className="stat-icon energy">⚡</div>
+              <div className="stat-content">
+                <div className="stat-title">Энергия</div>
+                <div className="stat-value">
+                  {energy}/{maxEnergy}
+                </div>
               </div>
             </div>
           </div>
@@ -261,6 +273,26 @@ const HomePage = () => {
         </footer>
       </div>
     </div>
+            {/* Кнопка восстановления энергии добавлена сюда */}
+            <div className="upgrade-card" onClick={handleRestoreEnergy}>
+              <div className="upgrade-icon">🔋</div>
+              <div className="upgrade-content">
+                <div className="upgrade-title">Восстановить энергию</div>
+                <div className="upgrade-description">
+                  Мгновенно заполнить энергию.
+                </div>
+              </div>
+              <div className="upgrade-cost">
+                {energyRestores} / 3 <span>(ежедневно)</span>
+              </div>
+            </div>
+          </div>{' '}
+          {/* Конец upgrades-grid */}
+        </div>{' '}
+        {/* Конец upgrades-section */}
+      </div>{' '}
+      {/* Конец game-container */}
+    </div> /* Конец home-page */
   )
 }
 

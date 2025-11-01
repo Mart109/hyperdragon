@@ -22,6 +22,15 @@ const Header = () => {
             <span className="nav-text">Главная</span>
           </Link>
           <Link
+            to="/cards"
+            className={`nav-link ${
+              location.pathname === '/cards' ? 'active' : ''
+            }`}
+          >
+            <span className="nav-icon">🃏</span>
+            <span className="nav-text">Карты</span>
+          </Link>
+          <Link
             to="/boosts"
             className={`nav-link ${
               location.pathname === '/boosts' ? 'active' : ''
@@ -31,13 +40,13 @@ const Header = () => {
             <span className="nav-text">Бусты</span>
           </Link>
           <Link
-            to="/cards"
+            to="/tasks"
             className={`nav-link ${
-              location.pathname === '/cards' ? 'active' : ''
+              location.pathname === '/tasks' ? 'active' : ''
             }`}
           >
-            <span className="nav-icon">🃏</span>
-            <span className="nav-text">Карты</span>
+            <span className="nav-icon">📝</span>
+            <span className="nav-text">Задания</span>
           </Link>
           <Link
             to="/battle"

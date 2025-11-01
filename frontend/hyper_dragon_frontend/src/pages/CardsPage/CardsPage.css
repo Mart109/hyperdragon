@@ -25,21 +25,32 @@
   height: 100%;
   background: radial-gradient(
       circle at 20% 80%,
-      rgba(255, 87, 34, 0.15) 0%,
+      rgba(76, 175, 80, 0.2) 0%,
       transparent 50%
     ),
     radial-gradient(
       circle at 80% 20%,
-      rgba(255, 193, 7, 0.15) 0%,
+      rgba(46, 204, 113, 0.2) 0%,
       transparent 50%
     ),
     radial-gradient(
       circle at 40% 40%,
-      rgba(33, 150, 243, 0.1) 0%,
+      rgba(39, 174, 96, 0.15) 0%,
       transparent 50%
     );
   pointer-events: none;
   z-index: 0;
+  animation: backgroundShift 8s ease-in-out infinite;
+}
+
+@keyframes backgroundShift {
+  0%,
+  100% {
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    filter: hue-rotate(20deg);
+  }
 }
 
 .cards-container {
@@ -59,15 +70,17 @@
   position: relative;
   background: linear-gradient(
     135deg,
-    rgba(255, 87, 34, 0.15) 0%,
-    rgba(255, 193, 7, 0.15) 50%,
-    rgba(33, 150, 243, 0.1) 100%
+    rgba(76, 175, 80, 0.2) 0%,
+    rgba(46, 204, 113, 0.2) 50%,
+    rgba(39, 174, 96, 0.15) 100%
   );
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(25px);
   margin-bottom: 8px;
   overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .header-content {
@@ -78,26 +91,27 @@
 .cards-title {
   font-size: clamp(2.2rem, 6vw, 3.5rem);
   font-weight: 900;
-  background: linear-gradient(45deg, #ff5722, #ffc107, #2196f3, #ff5722);
+  background: linear-gradient(45deg, #4caf50, #2ecc71, #27ae60, #4caf50);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 12px;
   animation: gradientShift 3s ease infinite;
-  text-shadow: 0 0 30px rgba(255, 87, 34, 0.4);
+  text-shadow: 0 0 30px rgba(76, 175, 80, 0.6), 0 0 60px rgba(46, 204, 113, 0.4);
   letter-spacing: -0.5px;
   line-height: 1.1;
 }
 
 .cards-subtitle {
   font-size: clamp(1rem, 3vw, 1.3rem);
-  color: #b0bec5;
-  opacity: 0.9;
+  color: #e0e0e0;
+  opacity: 0.95;
   font-weight: 500;
   max-width: 500px;
   margin: 0 auto;
   line-height: 1.4;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .header-decoration {
@@ -113,36 +127,50 @@
 .decoration-gem,
 .decoration-fire {
   position: absolute;
-  font-size: 1.8rem;
-  opacity: 0.3;
+  font-size: 2rem;
+  opacity: 0.4;
   animation: float 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px currentColor);
 }
 
 .decoration-coin {
   top: 15%;
   left: 8%;
   animation-delay: 0s;
+  color: #4caf50;
 }
 
 .decoration-gem {
   top: 25%;
   right: 10%;
   animation-delay: 2s;
+  color: #2ecc71;
 }
 
 .decoration-fire {
   bottom: 20%;
   left: 15%;
   animation-delay: 4s;
+  color: #27ae60;
 }
 
 @keyframes float {
   0%,
   100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px) rotate(0deg) scale(1);
   }
   50% {
-    transform: translateY(-20px) rotate(180deg);
+    transform: translateY(-20px) rotate(180deg) scale(1.1);
+  }
+}
+
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
   }
 }
 
@@ -154,33 +182,36 @@
 .balance-card {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.03) 100%
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
   );
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 20px;
-  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  padding: 24px;
+  backdrop-filter: blur(25px);
   display: flex;
   align-items: center;
-  gap: 16px;
-  max-width: 300px;
+  gap: 18px;
+  max-width: 320px;
   margin: 0 auto;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .balance-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 193, 7, 0.3);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transform: translateY(-5px) scale(1.02);
+  border-color: rgba(76, 175, 80, 0.4);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(76, 175, 80, 0.3),
+    0 0 30px rgba(76, 175, 80, 0.2);
 }
 
 .balance-icon {
-  font-size: 2.5rem;
-  background: linear-gradient(135deg, #ffc107, #ff9800);
+  font-size: 2.8rem;
+  background: linear-gradient(135deg, #4caf50, #2ecc71);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  filter: drop-shadow(0 0 15px rgba(76, 175, 80, 0.5));
 }
 
 .balance-content {
@@ -189,32 +220,38 @@
 
 .balance-title {
   font-size: 0.9rem;
-  color: #b0bec5;
+  color: #e0e0e0;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 600;
-  margin-bottom: 4px;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .balance-value {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: #ffc107;
-  text-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+  font-size: 2rem;
+  font-weight: 900;
+  color: #4caf50;
+  text-shadow: 0 2px 8px rgba(76, 175, 80, 0.5), 0 4px 16px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #4caf50, #2ecc71);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Витрина карточек */
 .cards-showcase {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.08) 0%,
-    rgba(255, 255, 255, 0.03) 100%
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
   );
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   padding: 30px;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(25px);
   margin-bottom: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .section-title {
@@ -222,43 +259,51 @@
   font-weight: 800;
   margin-bottom: 25px;
   text-align: center;
-  color: #ffc107;
+  color: #4caf50;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
   line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #4caf50, #2ecc71);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .title-icon {
   font-size: 2rem;
+  filter: drop-shadow(0 0 10px rgba(76, 175, 80, 0.5));
 }
 
 /* Сетка карточек */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 25px;
 }
 
 .card-item {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.05) 0%,
-    rgba(255, 255, 255, 0.02) 100%
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.03) 100%
   );
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 18px;
   overflow: hidden;
   backdrop-filter: blur(20px);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .card-item:hover {
-  transform: translateY(-5px);
-  border-color: rgba(255, 193, 7, 0.3);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(76, 175, 80, 0.4);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(76, 175, 80, 0.3),
+    0 0 40px rgba(76, 175, 80, 0.2);
 }
 
 /* Большое изображение карты */
@@ -279,18 +324,18 @@
 
 .dragon-illustration {
   font-size: 6rem;
-  filter: drop-shadow(0 0 20px rgba(255, 193, 7, 0.5));
+  filter: drop-shadow(0 0 20px rgba(76, 175, 80, 0.6));
   animation: dragonGlow 3s ease-in-out infinite;
 }
 
 @keyframes dragonGlow {
   0%,
   100% {
-    filter: drop-shadow(0 0 20px rgba(255, 193, 7, 0.5));
+    filter: drop-shadow(0 0 20px rgba(76, 175, 80, 0.6));
     transform: scale(1);
   }
   50% {
-    filter: drop-shadow(0 0 30px rgba(255, 193, 7, 0.8));
+    filter: drop-shadow(0 0 30px rgba(76, 175, 80, 0.9));
     transform: scale(1.05);
   }
 }
@@ -299,13 +344,14 @@
   position: absolute;
   top: 15px;
   right: 15px;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 6px 12px;
+  background: linear-gradient(135deg, #4caf50, #2ecc71);
+  padding: 8px 16px;
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: bold;
-  color: #0c1212;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  color: white;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* Информация о карте */
@@ -320,23 +366,30 @@
   margin: 0 0 12px 0;
   text-align: center;
   line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #ffffff, #e0e0e0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .card-description {
-  color: #b0bec5;
+  color: #e0e0e0;
   font-size: 0.95rem;
   margin-bottom: 20px;
   text-align: center;
   line-height: 1.4;
   min-height: 40px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .card-stats {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 20px;
   margin-bottom: 20px;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .stat-row {
@@ -344,31 +397,45 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .stat-row:last-child {
   margin-bottom: 0;
+  border-bottom: none;
 }
 
 .stat-label {
-  color: #b0bec5;
+  color: #e0e0e0;
   font-size: 0.9rem;
   font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .stat-value {
   color: #ffffff;
   font-weight: 700;
   font-size: 1rem;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .stat-value.price {
-  color: #ffc107;
+  color: #4caf50;
+  font-weight: 800;
+  background: linear-gradient(45deg, #4caf50, #2ecc71);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .stat-value.income {
   color: #27ae60;
   font-weight: 800;
+  background: linear-gradient(45deg, #27ae60, #2ecc71);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Кнопка покупки */
@@ -378,20 +445,45 @@
   color: white;
   border: none;
   padding: 16px;
-  border-radius: 12px;
+  border-radius: 14px;
   font-weight: 800;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   font-size: 1rem;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
+  letter-spacing: 0.8px;
+  box-shadow: 0 6px 20px rgba(39, 174, 96, 0.5),
+    0 0 15px rgba(46, 204, 113, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.buy-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.6s ease;
 }
 
 .buy-button:hover:not(.disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(39, 174, 96, 0.6);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(39, 174, 96, 0.7),
+    0 0 25px rgba(46, 204, 113, 0.5);
   background: linear-gradient(135deg, #219653, #27ae60);
+}
+
+.buy-button:hover:not(.disabled)::before {
+  left: 100%;
 }
 
 .buy-button.disabled {
@@ -410,76 +502,102 @@
 .info-card {
   background: linear-gradient(
     135deg,
-    rgba(33, 150, 243, 0.15) 0%,
-    rgba(33, 150, 243, 0.05) 100%
+    rgba(76, 175, 80, 0.2) 0%,
+    rgba(76, 175, 80, 0.08) 100%
   );
-  border: 1px solid rgba(33, 150, 243, 0.3);
-  border-radius: 16px;
+  border: 1px solid rgba(76, 175, 80, 0.4);
+  border-radius: 18px;
   padding: 25px;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(25px);
   text-align: center;
+  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.2),
+    0 0 0 1px rgba(76, 175, 80, 0.2);
 }
 
 .info-title {
   font-size: 1.3rem;
   font-weight: 700;
   margin-bottom: 12px;
-  color: #2196f3;
+  color: #4caf50;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(45deg, #4caf50, #2ecc71);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .info-icon {
   font-size: 1.5rem;
+  filter: drop-shadow(0 0 8px rgba(76, 175, 80, 0.5));
 }
 
 .info-text {
-  color: #b0bec5;
+  color: #e0e0e0;
   font-size: 0.95rem;
   margin-bottom: 15px;
   line-height: 1.4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .income-example {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 12px;
+  border-radius: 10px;
+  padding: 14px;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .income-example span {
-  color: #b0bec5;
+  color: #e0e0e0;
   font-size: 0.9rem;
   display: block;
   margin-bottom: 5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .income-example strong {
-  color: #ffc107;
+  color: #4caf50;
   font-size: 1rem;
+  font-weight: 800;
+  background: linear-gradient(45deg, #4caf50, #2ecc71);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* Футер */
 .cards-footer {
   text-align: center;
   padding: 20px 0;
-  color: #b0bec5;
+  color: #e0e0e0;
   font-size: 0.9rem;
+  margin-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  line-height: 1.3;
+  line-height: 1.4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
-/* Анимация градиента */
-@keyframes gradientShift {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+/* Изображения карт */
+.card-image {
+  max-width: 100%;
+  max-height: 180px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  filter: drop-shadow(0 0 15px rgba(76, 175, 80, 0.4));
+}
+
+.card-image-placeholder {
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
 }
 
 /* Адаптивность */
@@ -507,7 +625,7 @@
 
   .balance-card {
     max-width: 100%;
-    padding: 16px;
+    padding: 20px;
   }
 
   .cards-showcase {
@@ -564,7 +682,7 @@
   }
 
   .card-stats {
-    padding: 14px;
+    padding: 16px;
   }
 
   .stat-row {
@@ -577,21 +695,4 @@
     padding: 14px;
     font-size: 0.9rem;
   }
-}
-
-.card-image {
-  max-width: 100%;
-  max-height: 180px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-.card-image-placeholder {
-  height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
 }

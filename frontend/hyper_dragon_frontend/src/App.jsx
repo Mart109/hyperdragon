@@ -5,6 +5,7 @@ import CardsPage from './pages/CardsPage/CardsPage'
 import BattlePage from './pages/BattlePage/BattlePage'
 import ProfilePage from './pages/ProfilePage/ProfilePage'
 import Header from './pages/components/common/Header/Header'
+import BoostsPage from './pages/BoostsPage/BoostShop'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/cards" element={<CardsPage />} />
             <Route path="/battle" element={<BattlePage />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path='/boosts' element={<BoostsPage />} />
           </Routes>
         </main>
       </div>

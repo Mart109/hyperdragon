@@ -7,6 +7,7 @@ import ProfilePage from './pages/ProfilePage/ProfilePage'
 import Header from './pages/components/common/Header/Header'
 import BoostsPage from './pages/BoostsPage/BoostShop'
 import TasksPage from './pages/TasksPage/TasksPage'
+import AbilitiesPage from './pages/AbilitiesPage/AbilitiesPage'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/cards" element={<CardsPage />} />
             <Route path="/battle" element={<BattlePage />} />
+            <Route path="/abilities" element={<AbilitiesPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path='/boosts' element={<BoostsPage />} />
             <Route path='/tasks' element={<TasksPage />} />

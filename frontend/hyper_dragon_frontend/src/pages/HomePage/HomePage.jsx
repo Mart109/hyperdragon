@@ -11,6 +11,8 @@ const HomePage = () => {
   const [clickEffect, setClickEffect] = useState(false)
   const [energyRestores, setEnergyRestores] = useState(3)
   const [lastResetDate, setLastResetDate] = useState('')
+  const [levelUpNotification, setLevelUpNotification] = useState(false)
+  const [newLevel, setNewLevel] = useState(1)
 
   useEffect(() => {
     const energyInterval = setInterval(() => {
@@ -57,6 +59,17 @@ const HomePage = () => {
     localStorage.setItem('hypeDragon_energy', energy.toString())
   }, [coins, level, energy])
 
+  // Функция для показа уведомления о повышении уровня
+  const showLevelUpNotification = (level) => {
+    setNewLevel(level)
+    setLevelUpNotification(true)
+    
+    // Автоматически скрываем уведомление через 3 секунды
+    setTimeout(() => {
+      setLevelUpNotification(false)
+    }, 3000)
+  }
+
   const handleClick = () => {
     if (energy <= 0) return
     setIsClicking(true)
@@ -64,8 +77,15 @@ const HomePage = () => {
     const newCoins = coins + 1
     setCoins(newCoins)
     setEnergy((prev) => prev - 1)
+    
     const coinsNeededForNextLevel = level * 1000
-    if (newCoins >= coinsNeededForNextLevel) setLevel((prev) => prev + 1)
+    if (newCoins >= coinsNeededForNextLevel) {
+      const newLevel = level + 1
+      setLevel(newLevel)
+      // Показываем уведомление о повышении уровня
+      showLevelUpNotification(newLevel)
+    }
+    
     setTimeout(() => {
       setIsClicking(false)
       setClickEffect(false)
@@ -95,6 +115,24 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
+      {/* Уведомление о повышении уровня */}
+      {levelUpNotification && (
+        <div className="level-up-notification">
+          <div className="level-up-content">
+            <div className="level-up-icon">🎉</div>
+            <div className="level-up-text">
+              <div className="level-up-title">НОВЫЙ УРОВЕНЬ!</div>
+              <div className="level-up-level">Уровень {newLevel}</div>
+            </div>
+            <div className="level-up-fireworks">
+              <div className="firework">✨</div>
+              <div className="firework">⭐</div>
+              <div className="firework">🔥</div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="game-container">
         <header className="game-header">
           <div className="header-content">

@@ -58,6 +58,15 @@ const Header = () => {
             <span className="nav-text">Битва</span>
           </Link>
           <Link
+            to="/abilities"
+            className={`nav-link ${
+              location.pathname === '/abilities' ? 'active' : ''
+            }`}
+          >
+            <span className="nav-icon">💪</span>
+            <span className="nav-text">Способности</span>
+          </Link>
+          <Link
             to="/profile"
             className={`nav-link ${
               location.pathname === '/profile' ? 'active' : ''

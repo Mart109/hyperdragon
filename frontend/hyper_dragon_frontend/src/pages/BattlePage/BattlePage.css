@@ -1203,3 +1203,116 @@
     padding: 10px;
   }
 }
+
+/* Стили для панели способностей */
+.abilities-panel {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.abilities-panel h4 {
+  color: #6bff07;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.abilities-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ability-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  min-width: 120px;
+}
+
+.ability-button.basic {
+  background: linear-gradient(135deg, #22c1ff, #6bff07);
+  color: white;
+}
+
+.ability-button.medium {
+  background: linear-gradient(135deg, #6bff07, #98ff00);
+  color: white;
+}
+
+.ability-button.epic {
+  background: linear-gradient(135deg, #ff07a3, #ff6b07);
+  color: white;
+}
+
+.ability-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(107, 255, 7, 0.4);
+}
+
+.ability-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ability-button.cooldown {
+  background: rgba(255, 255, 255, 0.1);
+  color: #b0bec5;
+}
+
+.ability-button.active {
+  animation: pulseGlow 1s ease-in-out infinite;
+}
+
+.ability-icon {
+  font-size: 1.2rem;
+}
+
+.ability-name {
+  font-size: 0.9rem;
+}
+
+.cooldown-counter {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ff2222;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.active-indicator {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  font-size: 0.8rem;
+  animation: bounce 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 5px currentColor; }
+  50% { box-shadow: 0 0 15px currentColor; }
+}
+
+@keyframes bounce {
+  from { transform: scale(1); }
+  to { transform: scale(1.3); }
+}

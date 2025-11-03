@@ -7,15 +7,16 @@
 
 .cards-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0c1212 0%, #1a2a2a 50%, #0c1212 100%);
+  background: radial-gradient(ellipse at top, #1a2a2a 0%, #0c1212 70%),
+    radial-gradient(ellipse at bottom, #2d4a4a 0%, #0c1212 70%);
   color: #ffffff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 16px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  padding: 20px;
   position: relative;
   overflow-x: hidden;
 }
 
-/* Фоновые элементы */
+/* Анимированный фон с частицами */
 .cards-page::before {
   content: '';
   position: fixed;
@@ -25,62 +26,87 @@
   height: 100%;
   background: radial-gradient(
       circle at 20% 80%,
-      rgba(76, 175, 80, 0.2) 0%,
+      rgba(255, 87, 34, 0.1) 0%,
       transparent 50%
     ),
     radial-gradient(
       circle at 80% 20%,
-      rgba(46, 204, 113, 0.2) 0%,
+      rgba(255, 193, 7, 0.08) 0%,
       transparent 50%
     ),
     radial-gradient(
       circle at 40% 40%,
-      rgba(39, 174, 96, 0.15) 0%,
+      rgba(33, 150, 243, 0.05) 0%,
       transparent 50%
     );
   pointer-events: none;
   z-index: 0;
-  animation: backgroundShift 8s ease-in-out infinite;
+  animation: backgroundPulse 8s ease-in-out infinite;
 }
 
-@keyframes backgroundShift {
+@keyframes backgroundPulse {
   0%,
   100% {
-    filter: hue-rotate(0deg);
+    opacity: 0.8;
   }
   50% {
-    filter: hue-rotate(20deg);
+    opacity: 1;
   }
 }
 
 .cards-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
   position: relative;
   z-index: 1;
 }
 
-/* Заголовок */
+/* Заголовок с улучшенным дизайном */
 .cards-header {
   text-align: center;
-  padding: 30px 20px;
+  padding: 50px 30px;
   position: relative;
   background: linear-gradient(
     135deg,
-    rgba(76, 175, 80, 0.2) 0%,
-    rgba(46, 204, 113, 0.2) 50%,
-    rgba(39, 174, 96, 0.15) 100%
+    rgba(255, 87, 34, 0.1) 0%,
+    rgba(255, 193, 7, 0.08) 50%,
+    rgba(33, 150, 243, 0.06) 100%
   );
-  border-radius: 20px;
+  border-radius: 24px;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(25px);
-  margin-bottom: 8px;
+  backdrop-filter: blur(40px);
+  margin-bottom: 10px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.cards-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
 }
 
 .header-content {
@@ -89,28 +115,40 @@
 }
 
 .cards-title {
-  font-size: clamp(2.2rem, 6vw, 3.5rem);
+  font-size: clamp(2.5rem, 8vw, 4rem);
   font-weight: 900;
-  background: linear-gradient(45deg, #4caf50, #2ecc71, #27ae60, #4caf50);
+  background: linear-gradient(135deg, #ff5722, #ffc107, #2196f3, #e91e63);
   background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 12px;
-  animation: gradientShift 3s ease infinite;
-  text-shadow: 0 0 30px rgba(76, 175, 80, 0.6), 0 0 60px rgba(46, 204, 113, 0.4);
-  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+  animation: gradientShift 4s ease infinite;
+  text-shadow: 0 0 50px rgba(255, 87, 34, 0.5);
+  letter-spacing: -1px;
   line-height: 1.1;
+  position: relative;
+}
+
+.cards-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff5722, #ffc107);
+  border-radius: 2px;
 }
 
 .cards-subtitle {
-  font-size: clamp(1rem, 3vw, 1.3rem);
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
   color: #e0e0e0;
-  opacity: 0.95;
-  font-weight: 500;
-  max-width: 500px;
+  font-weight: 400;
+  max-width: 600px;
   margin: 0 auto;
-  line-height: 1.4;
+  line-height: 1.6;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -127,31 +165,28 @@
 .decoration-gem,
 .decoration-fire {
   position: absolute;
-  font-size: 2rem;
+  font-size: 2.5rem;
   opacity: 0.4;
-  animation: float 6s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px currentColor);
+  animation: float 8s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
 }
 
 .decoration-coin {
-  top: 15%;
-  left: 8%;
+  top: 20%;
+  left: 10%;
   animation-delay: 0s;
-  color: #4caf50;
 }
 
 .decoration-gem {
-  top: 25%;
-  right: 10%;
-  animation-delay: 2s;
-  color: #2ecc71;
+  top: 30%;
+  right: 12%;
+  animation-delay: 2.5s;
 }
 
 .decoration-fire {
-  bottom: 20%;
-  left: 15%;
-  animation-delay: 4s;
-  color: #27ae60;
+  bottom: 25%;
+  left: 18%;
+  animation-delay: 5s;
 }
 
 @keyframes float {
@@ -159,59 +194,393 @@
   100% {
     transform: translateY(0px) rotate(0deg) scale(1);
   }
-  50% {
-    transform: translateY(-20px) rotate(180deg) scale(1.1);
+  33% {
+    transform: translateY(-25px) rotate(120deg) scale(1.1);
+  }
+  66% {
+    transform: translateY(10px) rotate(240deg) scale(0.9);
   }
 }
 
-@keyframes gradientShift {
-  0%,
+/* Секция комбинаций - премиум дизайн */
+.combo-section {
+  margin-bottom: 30px;
+}
+
+.combo-card {
+  background: linear-gradient(
+    135deg,
+    rgba(148, 87, 235, 0.15) 0%,
+    rgba(87, 235, 148, 0.12) 50%,
+    rgba(255, 193, 7, 0.08) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 28px;
+  padding: 35px;
+  backdrop-filter: blur(60px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.combo-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent 30%
+  );
+  animation: rotate 10s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
   100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
+    transform: rotate(360deg);
   }
 }
 
-/* Баланс */
-.balance-section {
+.combo-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 25px;
+  text-align: center;
+  background: linear-gradient(135deg, #ff6b6b, #ffc107);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
+}
+
+.combo-icon {
+  font-size: 2.2rem;
+  filter: drop-shadow(0 0 10px rgba(255, 107, 107, 0.5));
+}
+
+.combo-badge {
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-left: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.combo-badge.won {
+  background: linear-gradient(
+    135deg,
+    rgba(46, 204, 113, 0.3),
+    rgba(39, 174, 96, 0.2)
+  );
+  color: #2ecc71;
+  border-color: #2ecc71;
+}
+
+.combo-description {
+  color: #e0e0e0;
+  text-align: center;
+  margin-bottom: 30px;
+  line-height: 1.6;
+  font-size: 1.1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  font-weight: 500;
+}
+
+/* Отображение комбинации */
+.combo-display {
+  margin-bottom: 30px;
+}
+
+.user-combo h3 {
+  color: #ffc107;
   margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+.combo-sequence {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.combo-slot {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.combo-slot::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.combo-slot:hover::before {
+  left: 100%;
+}
+
+.combo-slot-empty {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 3rem;
+  font-weight: 900;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.combo-slot:hover .combo-slot-empty {
+  color: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+.combo-card-preview {
+  text-align: center;
+  padding: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.combo-card-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 3px solid #ffc107;
+  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.combo-card-preview:hover .combo-card-image {
+  transform: scale(1.05);
+  border-color: #ffeb3b;
+  box-shadow: 0 12px 35px rgba(255, 235, 59, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.combo-card-name {
+  display: block;
+  font-size: 0.8rem;
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 8px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Прогресс комбинации */
+.combo-progress {
+  text-align: center;
+  margin-top: 25px;
+}
+
+.progress-text {
+  color: #e0e0e0;
+  margin-bottom: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3498db, #2ecc71, #27ae60);
+  border-radius: 10px;
+  transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: progressShine 2s infinite;
+}
+
+@keyframes progressShine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Результат комбинации */
+.combo-result {
+  text-align: center;
+  padding: 20px;
+  border-radius: 20px;
+  margin: 25px 0;
+  font-weight: 800;
+  font-size: 1.3rem;
+  backdrop-filter: blur(20px);
+  border: 1px solid;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: resultPopIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes resultPopIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.combo-result.success {
+  background: linear-gradient(
+    135deg,
+    rgba(46, 204, 113, 0.25),
+    rgba(39, 174, 96, 0.15)
+  );
+  border-color: rgba(46, 204, 113, 0.5);
+  color: #2ecc71;
+  text-shadow: 0 0 20px rgba(46, 204, 113, 0.5);
+}
+
+/* Награда */
+.combo-reward {
+  text-align: center;
+  color: #ffc107;
+  font-size: 1.2rem;
+  padding: 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 193, 7, 0.15),
+    rgba(255, 152, 0, 0.1)
+  );
+  border-radius: 16px;
+  border: 1px solid rgba(255, 193, 7, 0.4);
+  margin-bottom: 25px;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
+}
+
+/* Баланс - премиум дизайн */
+.balance-section {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
 }
 
 .balance-card {
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 0.05) 100%
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.06) 100%
   );
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 18px;
-  padding: 24px;
-  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 25px 30px;
+  backdrop-filter: blur(40px);
   display: flex;
   align-items: center;
-  gap: 18px;
-  max-width: 320px;
-  margin: 0 auto;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  gap: 20px;
+  max-width: 350px;
+  width: 100%;
+  transition: all 0.4s ease;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.balance-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
 }
 
 .balance-card:hover {
-  transform: translateY(-5px) scale(1.02);
-  border-color: rgba(76, 175, 80, 0.4);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(76, 175, 80, 0.3),
-    0 0 30px rgba(76, 175, 80, 0.2);
+  transform: translateY(-5px);
+  border-color: rgba(255, 193, 7, 0.5);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 193, 7, 0.2);
 }
 
 .balance-icon {
-  font-size: 2.8rem;
-  background: linear-gradient(135deg, #4caf50, #2ecc71);
+  font-size: 3rem;
+  background: linear-gradient(135deg, #ffc107, #ff9800, #ff5722);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 0 15px rgba(76, 175, 80, 0.5));
+  filter: drop-shadow(0 0 10px rgba(255, 193, 7, 0.3));
 }
 
 .balance-content {
@@ -219,27 +588,43 @@
 }
 
 .balance-title {
-  font-size: 0.9rem;
-  color: #e0e0e0;
+  font-size: 0.95rem;
+  color: #b0bec5;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  font-weight: 700;
+  letter-spacing: 1px;
+  font-weight: 600;
   margin-bottom: 6px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .balance-value {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 900;
-  color: #4caf50;
-  text-shadow: 0 2px 8px rgba(76, 175, 80, 0.5), 0 4px 16px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(45deg, #4caf50, #2ecc71);
+  background: linear-gradient(135deg, #ffc107, #ff9800);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  text-shadow: 0 0 30px rgba(255, 193, 7, 0.4);
+  line-height: 1;
 }
 
-/* Витрина карточек */
+.owned-cards-counter {
+  text-align: center;
+  color: #ffc107;
+  font-weight: 700;
+  padding: 15px 25px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 193, 7, 0.15),
+    rgba(255, 152, 0, 0.1)
+  );
+  border-radius: 20px;
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  font-size: 1rem;
+  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
+  backdrop-filter: blur(20px);
+}
+
+/* Витрина карточек - премиум дизайн */
 .cards-showcase {
   background: linear-gradient(
     135deg,
@@ -247,41 +632,41 @@
     rgba(255, 255, 255, 0.05) 100%
   );
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  padding: 30px;
-  backdrop-filter: blur(25px);
-  margin-bottom: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  border-radius: 28px;
+  padding: 40px;
+  backdrop-filter: blur(40px);
+  margin-bottom: 30px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .section-title {
-  font-size: 1.8rem;
+  font-size: 2.2rem;
   font-weight: 800;
-  margin-bottom: 25px;
+  margin-bottom: 35px;
   text-align: center;
-  color: #4caf50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  line-height: 1.2;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(45deg, #4caf50, #2ecc71);
+  background: linear-gradient(135deg, #ffc107, #ff9800);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  line-height: 1.2;
+  text-shadow: 0 0 30px rgba(255, 193, 7, 0.3);
 }
 
 .title-icon {
-  font-size: 2rem;
-  filter: drop-shadow(0 0 10px rgba(76, 175, 80, 0.5));
+  font-size: 2.5rem;
+  filter: drop-shadow(0 0 10px rgba(255, 193, 7, 0.5));
 }
 
 /* Сетка карточек */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
 }
 
 .card-item {
@@ -290,171 +675,203 @@
     rgba(255, 255, 255, 0.08) 0%,
     rgba(255, 255, 255, 0.03) 100%
   );
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
   overflow: hidden;
-  backdrop-filter: blur(20px);
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  backdrop-filter: blur(30px);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.card-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
 }
 
 .card-item:hover {
-  transform: translateY(-8px) scale(1.02);
-  border-color: rgba(76, 175, 80, 0.4);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(76, 175, 80, 0.3),
-    0 0 40px rgba(76, 175, 80, 0.2);
+  transform: translateY(-10px) scale(1.02);
+  border-color: rgba(255, 193, 7, 0.5);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 193, 7, 0.2);
 }
 
 /* Большое изображение карты */
 .card-image-container {
   position: relative;
   background: linear-gradient(135deg, #1a2a2a, #0c1212);
-  padding: 40px 20px;
+  padding: 50px 30px;
   text-align: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
 }
 
 .card-image-placeholder {
-  height: 180px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
-.dragon-illustration {
-  font-size: 6rem;
-  filter: drop-shadow(0 0 20px rgba(76, 175, 80, 0.6));
-  animation: dragonGlow 3s ease-in-out infinite;
+.card-image {
+  max-width: 100%;
+  max-height: 200px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  transition: all 0.4s ease;
 }
 
-@keyframes dragonGlow {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 20px rgba(76, 175, 80, 0.6));
-    transform: scale(1);
-  }
-  50% {
-    filter: drop-shadow(0 0 30px rgba(76, 175, 80, 0.9));
-    transform: scale(1.05);
-  }
+.card-item:hover .card-image {
+  transform: scale(1.05);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
 }
 
 .card-rarity {
   position: absolute;
-  top: 15px;
-  right: 15px;
-  background: linear-gradient(135deg, #4caf50, #2ecc71);
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.85)
+  );
   padding: 8px 16px;
-  border-radius: 20px;
+  border-radius: 25px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #0c1212;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Статус карты в комбинации */
+.combo-status {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 193, 7, 0.95),
+    rgba(255, 152, 0, 0.9)
+  );
+  color: #000;
+  padding: 10px 20px;
+  border-radius: 25px;
   font-size: 0.8rem;
-  font-weight: bold;
-  color: white;
-  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 3;
 }
 
 /* Информация о карте */
 .card-info {
-  padding: 25px;
+  padding: 30px;
 }
 
 .card-name {
   color: #ffffff;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 800;
-  margin: 0 0 12px 0;
+  margin: 0 0 15px 0;
   text-align: center;
   line-height: 1.2;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(45deg, #ffffff, #e0e0e0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .card-description {
   color: #e0e0e0;
-  font-size: 0.95rem;
-  margin-bottom: 20px;
+  font-size: 1rem;
+  margin-bottom: 25px;
   text-align: center;
-  line-height: 1.4;
-  min-height: 40px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  line-height: 1.5;
+  min-height: 45px;
+  font-weight: 400;
 }
 
 .card-stats {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  padding: 20px;
-  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 25px;
+  margin-bottom: 25px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .stat-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
-  padding: 8px 0;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .stat-row:last-child {
   margin-bottom: 0;
+  padding-bottom: 0;
   border-bottom: none;
 }
 
 .stat-label {
-  color: #e0e0e0;
-  font-size: 0.9rem;
+  color: #b0bec5;
+  font-size: 0.95rem;
   font-weight: 600;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .stat-value {
   color: #ffffff;
   font-weight: 700;
-  font-size: 1rem;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  font-size: 1.05rem;
 }
 
 .stat-value.price {
-  color: #4caf50;
-  font-weight: 800;
-  background: linear-gradient(45deg, #4caf50, #2ecc71);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #ffc107;
+  text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
 }
 
 .stat-value.income {
   color: #27ae60;
   font-weight: 800;
-  background: linear-gradient(45deg, #27ae60, #2ecc71);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  text-shadow: 0 0 10px rgba(39, 174, 96, 0.3);
+}
+
+.stat-value.status {
+  color: #3498db;
+  font-weight: 700;
 }
 
 /* Кнопка покупки */
 .buy-button {
   width: 100%;
-  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  background: linear-gradient(135deg, #27ae60, #2ecc71, #219653);
   color: white;
   border: none;
-  padding: 16px;
-  border-radius: 14px;
+  padding: 20px;
+  border-radius: 16px;
   font-weight: 800;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  font-size: 1rem;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-size: 1.1rem;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  box-shadow: 0 6px 20px rgba(39, 174, 96, 0.5),
-    0 0 15px rgba(46, 204, 113, 0.3);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+  box-shadow: 0 8px 25px rgba(39, 174, 96, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
   position: relative;
   overflow: hidden;
 }
@@ -477,9 +894,9 @@
 
 .buy-button:hover:not(.disabled) {
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(39, 174, 96, 0.7),
-    0 0 25px rgba(46, 204, 113, 0.5);
-  background: linear-gradient(135deg, #219653, #27ae60);
+  box-shadow: 0 15px 35px rgba(39, 174, 96, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  background: linear-gradient(135deg, #219653, #27ae60, #1e8449);
 }
 
 .buy-button:hover:not(.disabled)::before {
@@ -487,150 +904,84 @@
 }
 
 .buy-button.disabled {
-  background: linear-gradient(135deg, #666, #888);
+  background: linear-gradient(135deg, #666, #888, #777);
   color: #ccc;
   cursor: not-allowed;
   transform: none;
-  box-shadow: none;
-}
-
-/* Информация о пассивном доходе */
-.income-info-section {
-  margin-bottom: 20px;
-}
-
-.info-card {
-  background: linear-gradient(
-    135deg,
-    rgba(76, 175, 80, 0.2) 0%,
-    rgba(76, 175, 80, 0.08) 100%
-  );
-  border: 1px solid rgba(76, 175, 80, 0.4);
-  border-radius: 18px;
-  padding: 25px;
-  backdrop-filter: blur(25px);
-  text-align: center;
-  box-shadow: 0 8px 32px rgba(76, 175, 80, 0.2),
-    0 0 0 1px rgba(76, 175, 80, 0.2);
-}
-
-.info-title {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: #4caf50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  background: linear-gradient(45deg, #4caf50, #2ecc71);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.info-icon {
-  font-size: 1.5rem;
-  filter: drop-shadow(0 0 8px rgba(76, 175, 80, 0.5));
-}
-
-.info-text {
-  color: #e0e0e0;
-  font-size: 0.95rem;
-  margin-bottom: 15px;
-  line-height: 1.4;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.income-example {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.income-example span {
-  color: #e0e0e0;
-  font-size: 0.9rem;
-  display: block;
-  margin-bottom: 5px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-.income-example strong {
-  color: #4caf50;
-  font-size: 1rem;
-  font-weight: 800;
-  background: linear-gradient(45deg, #4caf50, #2ecc71);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Футер */
 .cards-footer {
   text-align: center;
-  padding: 20px 0;
-  color: #e0e0e0;
-  font-size: 0.9rem;
-  margin-top: 20px;
+  padding: 30px 0;
+  color: #b0bec5;
+  font-size: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  line-height: 1.4;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  line-height: 1.5;
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  margin-top: 20px;
 }
 
-/* Изображения карт */
-.card-image {
-  max-width: 100%;
-  max-height: 180px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  border-radius: 8px;
-  filter: drop-shadow(0 0 15px rgba(76, 175, 80, 0.4));
+.cards-footer p {
+  margin-bottom: 10px;
 }
 
-.card-image-placeholder {
-  height: 180px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
+.cards-footer p:last-child {
+  margin-bottom: 0;
+}
+
+/* Анимация градиента */
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* Адаптивность */
+@media (max-width: 1200px) {
+  .cards-container {
+    max-width: 100%;
+    padding: 0 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .cards-page {
-    padding: 12px 8px;
+    padding: 15px 10px;
   }
 
   .cards-container {
-    gap: 16px;
+    gap: 20px;
   }
 
   .cards-header {
-    padding: 24px 16px;
-    border-radius: 16px;
+    padding: 30px 20px;
+    border-radius: 20px;
   }
 
-  .cards-title {
-    font-size: 2rem;
+  .combo-card {
+    padding: 25px 20px;
+    border-radius: 20px;
   }
 
-  .cards-subtitle {
-    font-size: 1rem;
+  .combo-sequence {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
   }
 
-  .balance-card {
-    max-width: 100%;
-    padding: 20px;
+  .combo-slot {
+    height: 120px;
   }
 
   .cards-showcase {
-    padding: 20px;
-    border-radius: 16px;
+    padding: 25px 20px;
+    border-radius: 20px;
   }
 
   .cards-grid {
@@ -642,57 +993,55 @@
     padding: 30px 20px;
   }
 
-  .dragon-illustration {
-    font-size: 4.5rem;
+  .card-image-placeholder {
+    height: 160px;
   }
 
   .card-info {
     padding: 20px;
   }
 
-  .card-name {
-    font-size: 1.2rem;
-  }
-
   .section-title {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
   }
 
-  .info-card {
+  .balance-card {
+    max-width: 100%;
     padding: 20px;
-  }
-
-  .info-title {
-    font-size: 1.1rem;
   }
 }
 
 @media (max-width: 480px) {
+  .combo-sequence {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .combo-slot {
+    height: 100px;
+  }
+
+  .combo-card-image {
+    width: 60px;
+    height: 60px;
+  }
+
   .card-image-container {
     padding: 25px 15px;
   }
 
-  .dragon-illustration {
-    font-size: 3.5rem;
-  }
-
-  .card-info {
-    padding: 16px;
-  }
-
   .card-stats {
-    padding: 16px;
+    padding: 20px;
   }
 
   .stat-row {
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
     text-align: center;
   }
 
   .buy-button {
-    padding: 14px;
-    font-size: 0.9rem;
+    padding: 18px;
+    font-size: 1rem;
   }
 }
